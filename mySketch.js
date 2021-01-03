@@ -4,7 +4,7 @@ let cylinderRadius = 120;
 let cylinderWidth = 500;
 let textTexture;
 let indexWord = 0;
-let words = ['HWANG HYUN DONG.NET'];
+let words = ['HYUNDONG.SITE HYUNDONG'];
 var divHeight = 0.8;
 var divWidth = 0.99;
 

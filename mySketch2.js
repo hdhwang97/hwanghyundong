@@ -1,99 +1,73 @@
-let font1;
+// By Roni Kaufman
 
-let cylinderRadius = 140;
-let cylinderWidth = 500;
-let textTexture;
-let indexWord = 0;
-let words = ['VISUAL COMMUNICATION DESIGN'];
-var divHeight = 1.65;
-var divWidth = 1;
-var x=0;
-var y; 
+let kMax; // maximal value for the parameter "k" of the blobs
+let step = 0.01; // difference in time between two consecutive blobs
+let n = 100; // total number of blobs
+let radius = 100; // radius of the base circle
+let inter = 0.05; // difference of base radii of two consecutive blobs
+let maxNoise = 500; // maximal value for the parameter "noisiness" for the blobs
+let c;
 
-
-
-
-function preload() {
-  font1 = loadFont('itc-avant-garde-gothic-std-bold-589572c7e9955.otf');
-}
+//let noiseProg = (x) => (x);
 
 function setup() {
-createCanvas(windowWidth*divWidth, windowHeight*divHeight,WEBGL);
-textTexture = createGraphics(2*PI*cylinderRadius,windowHeight*2);
-	textTexture.background(255);
-  textTexture.fill(x);
-	textTexture.textFont(font1);
-  textTexture.textAlign(CENTER);
-  textTexture.textSize(50);
-
+  createCanvas(windowWidth, windowHeight);
+  colorMode(HSB, 1.4);
+	
+	
+	
+	angleMode(DEGREES);
+  noFill();
+	//noLoop();
+	kMax = random(5.0, 5.0);
+	noStroke();
 }
 
 function draw() {
-	background(255);
-	noStroke();
-
-
-	
-
-
-	
-
-
-	var rotation = 1;
-
-	let wave = (sin(frameCount * 0.005 + (0.005) * 0.005) * 1);
-	
-	
-	textTexture.background(255);
-  textTexture.textSize(50);
-	for(let i = 0; i <=30; i++){
-		textTexture.text(words[indexWord], PI*cylinderRadius,i*50);
-	}
-	
-	image(textTexture, -10,-10);
-	
-	translate(-windowWidth, -0);
-	for(let i = 0; i <= 10; i++){
-		translate(cylinderRadius*2+5, 30);
-		push();
-		
-		rotateZ(radians(45));
-		push();
-		
-		if(i%2==0){
-			rotateY(-frameCount * 0.03);	
-		}else{
-			rotateY(frameCount * 0.03);	
-		}
-		texture(textTexture);
-		cylinder(cylinderRadius, windowHeight*2,255);
-		pop();
-		pop();
-	}	
+  background(255);
+  let t = frameCount/100;
+  for (let i = n; i > 0; i--) {
+		let alpha = 1 - (i / n);
+		fill((alpha/5 + 0.75)%1, 1, 1, alpha);
+		let size = radius + i * inter;
+		let k = kMax * sqrt(i/n);
+		let noisiness = maxNoise * (i / n);
+    blob(size, width/2, height/2, k, t - i * step, noisiness);
+  }
 }
 
-function changeWord() {
-	indexWord++;
-	if(indexWord > 19){
-		indexWord = 0;
-	}
-	setTimeout(changeWord, 500)
+// Creates and draws a blob
+// size is the radius (before noise) of the base circle
+// (xCenter, yCenter) is the position of the center of the blob
+// k is the tightness of the blob (0 = perfect circle, higher = more spiky)
+// t is the time
+// noisiness is the magnitude of the noise (i.e. how far it streches out)
+function blob(size, xCenter, yCenter, k, t, noisiness) {
+  beginShape();
+	let angleStep = 360 / 10;
+  for (let theta = 0; theta <= 360 + 2 * angleStep; theta += angleStep) {
+    let r1, r2;
+		/*
+    if (theta < PI / 2) {
+      r1 = cos(theta);
+      r2 = 1;
+    } else if (theta < PI) {
+      r1 = 0;
+      r2 = sin(theta);
+    } else if (theta < 3 * PI / 2) {
+      r1 = sin(theta);
+      r2 = 0;
+    } else {
+      r1 = 1;
+      r2 = cos(theta);
+    }
+		*/
+		r1 = cos(theta)+1;
+		r2 = sin(theta)+1; // +1 because it has to be positive for the function noise
+    let r = size + noise(k * r1,  k * r2, t) * noisiness;
+    let x = xCenter + r * cos(theta);
+    let y = yCenter + r * sin(theta);
+    curveVertex(x, y);
+  }
+  endShape();
 }
-
-function windowResized() {	
-
-	
-// if(windowWidth<600){divHeight=1.65;}
-// else{divHeight=1;}
-// if(windowWidth>600){divHeight=1;}
-	
-
-
-// resizeCanvas(windowWidth,windowHeight);
-	
-  resizeCanvas(windowWidth*divWidth, windowHeight*divHeight);
-}
-
-
-
-

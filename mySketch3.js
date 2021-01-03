@@ -4,11 +4,17 @@ let str_arr = [];
 let font;
 let sdgreg;
 var Num = 6;
-var txtSize = 120;
+let txtSize = 40;
 function preload() {font = loadFont("SpaceGrotesk-Bold.otf");
+home.click();
 }
 
+
+
 function setup() {
+	
+	
+	
   createCanvas(windowWidth, windowHeight, WEBGL);
   noCursor();
   let strs = str.split(" ");
@@ -20,10 +26,8 @@ function setup() {
   }
 }
 
-function windowResized() {	
-if(windowWidth<600){txtSize = 60;}
-else{txtSize = 120;}
-
+function windowResized() {
+window.location.reload()
 resizeCanvas(windowWidth,windowHeight);
 
 }
@@ -70,6 +74,7 @@ class Type {
     if(this.z > width/2){
     	this.z = -width*5;
     }
+
   }
 
   display() {
@@ -77,7 +82,8 @@ class Type {
     translate(this.x, this.y, this.z);
     textAlign(CENTER, CENTER);
     textFont(font);
-    textSize(120);
+    textSize(txtSize);
+
 		fill(0, 0, 0);
     text(this.str, 0, 0);
     pop();
