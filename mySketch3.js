@@ -1,20 +1,18 @@
 let str = " GraphicDesigner Developer VisualProgrammer InteractionDesigner ";
 let str_arr = [];
-
 let font;
 let sdgreg;
 var Num = 6;
-let txtSize = 40;
+txtSize=30;
 function preload() {font = loadFont("SpaceGrotesk-Bold.otf");
-home.click();
 }
 
 
 
+
+
 function setup() {
-	
-	
-	
+
   createCanvas(windowWidth, windowHeight, WEBGL);
   noCursor();
   let strs = str.split(" ");
@@ -29,12 +27,15 @@ function setup() {
 function windowResized() {
 window.location.reload()
 resizeCanvas(windowWidth,windowHeight);
-
 }
 
 
-function draw() {
 
+
+
+
+function draw() {
+	
   background(255);
 	
 push();
