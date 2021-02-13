@@ -106,8 +106,8 @@ background-color: black; color:white; text-align:center;
 height:4rem;
 text-align:center;
 vertical-align:center;
-margin-top:20px;
-/* padding-top:6px; */
+margin-top:1.5rem;
+padding-top:-1rem;
 }
 
 
@@ -132,8 +132,17 @@ border-style:solid;
 font-weight:1000;
 }
 
+.subtitle{
+font-weight:700;
+}
+
 .workdetail{
 font-size:1rem; color:#747474;
+}
+
+.workinfo{
+line-height:2rem;
+font-weight:500;
 }
 
 .linkicon{
@@ -150,5 +159,11 @@ opacity:100%;
 opacity:70%;
 }
 
-#home
+.navbar-toggler2 {
+  padding: 0.25rem 0.75rem;
+  font-size: 1.25rem;
+  /* line-height: 1; */
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
 
