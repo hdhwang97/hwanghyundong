@@ -86,9 +86,6 @@ if(windowWidth<600){divHeight=1.65;}
 else{divHeight=1;}
 if(windowWidth>600){divHeight=1;}
 	
-
-
-// resizeCanvas(windowWidth,windowHeight);
 	
   resizeCanvas(windowWidth*divWidth, windowHeight*divHeight);
 }
